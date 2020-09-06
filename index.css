@@ -1,0 +1,38 @@
+html {
+    box-sizing: border-box;
+    background-color: rgb(60, 60, 60);
+}
+p{
+    font-size: 30px;
+    color: #ffffff;
+}
+input:hover{
+    background-color: rgb(50, 50, 50);
+}
+input {
+    border-radius: 10px;
+    border: 1px solid #c4c4c4;
+    background: black; 
+    backdrop-filter: blur(10px);
+    font-size: 21px;
+    font-weight: bolder;
+    color: white;
+    display: block;
+    margin: 10px auto;
+    padding: 20px;
+}
+h1{
+    font-size: 50px;
+    color: #ffffff;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    display: block;
+    margin: auto;
+    text-align: center;
+
+}
+#container{
+    width: 60%;
+    margin: 100px auto;
+    border: 4px solid #c4c4c4;
+}
