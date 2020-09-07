@@ -6,5 +6,21 @@ if(!isset($_SESSION['user_type']) || $_SESSION['user_type']!="buyer"){
 ?>
 <!DOCTYPE HTML>  
 <html>
-<h1>Welcome <?php echo $_SESSION['username'];?> you are a <?php echo $_SESSION['user_type'];?></h1> 
+    <head>
+        <link rel="stylesheet" href="dashboard_buyer.css"> 
+    </head>
+    <h1>Welcome <?php echo $_SESSION['username'];?></h1> 
+    <div id="dashboard_buttons">
+        <a href="add_item_seller.php">add item </a>
+        <a href="add_item_seller.php">add item </a>
+    </div>
+    <div id = "purchases">
+        <p>Recent purchases:</p>
+        <br>
+        <?php
+            $username = $_SESSION['username'];
+            $_SESSION['sql'] = "select * from Items where seller = 'kevin'";
+            include 'show_item.php';
+        ?>
+    <div>
 </html>

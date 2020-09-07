@@ -96,7 +96,7 @@ function test_input($data) {
         <br><br>
         <input type="submit" name="submit" value="Login">  
     </form>
-    <h3>Or Sign-up <a href="signup.php">here</a></h3>
+    <h3> <a href="signup.php">Or Sign-up</a></h3>
 </div>
 </body>
 </html>

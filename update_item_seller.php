@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="add_item_seller.css"> 
+<link rel="stylesheet" href="update_item_seller.css"> 
 <style>
 .error {color: #FF0000;}
 </style>
@@ -11,9 +11,10 @@
   session_start();
   // define variables and set to empty values
   $item_nameErr = $descriptionErr = $priceErr = $quantityErr = $imageErr = "";
-  $item_name = $description = $price = $quantity = $image = "";
+  $item_name = $description = $price = $quantity = $image = $image_uploaded = "";
   $all_right = 0;
   $login_now = "";
+  $submit_button = "Update";
   $_SESSION['logged_in'] = false;
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -61,20 +62,28 @@
         $all_right = 1;
       }
     }
-    if (!file_exists($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name'])) {
-      $imageErr = "image is required";
-      $all_right = 1;
+    if (!file_exists($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name'])){
+      $image_updated = false;
+      
     } 
-    elseif($all_right != 1) {
+    else{
+      $image_updated = true;
+    }
+    if($all_right != 1) {
+      if($image_updated == true){
         $name = $_FILES['image']['name'];
+        $name = '/images/'.$name;
         $curr_dir = getcwd();
         $dir = $curr_dir.'/images/';
         $target_file = $dir.basename($_FILES["image"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
         $extensions_arr = array("jpg","jpeg","png","gif");
-        // Check if image file is a actual image or fake image
-        if(in_array($imageFileType,$extensions_arr)) {
+      }
+      else{
+        $name = $_SESSION['temp_image_src'];
+      }
+        if(in_array($imageFileType,$extensions_arr)||($image_updated == false)) {
             $image = basename( $_FILES["imageUpload"]["name"],".jpg");
             $servername = $_SESSION['servername'];
             $susername = $_SESSION['server_username'];
@@ -89,15 +98,21 @@
               die("Connection failed: " . $conn->connect_error); 
             }
             else{
+              $temp_item_name = $_SESSION['temp_item_name'];
               $seller = $_SESSION["username"];
+              $itemname = $_SESSION['to_update'];
+              $sql = "DELETE FROM Items WHERE itemname = '$temp_item_name'";
+              $conn->query($sql);
               $sql = "INSERT INTO Items (itemname, itemdesc,price,item_image,quantity,seller)
-              VALUES ('$item_name','$description','$price','".'/images/'.$name."','$quantity','$seller')";
+              VALUES ('$item_name','$description','$price','$name','$quantity','$seller')";
               if ($conn->query($sql) === TRUE) {
-                move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+                if($image_updated == true){
+                  move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+                }
+                $image_uploaded = "image uploaded: ";
                 $sql = "select item_image from Items where itemname = '$item_name'";
                 $result = $conn->query($sql);
                 $row = $result->fetch_assoc();
-                $image_src2 = $row['item_image'];
               }
               elseif($conn->error === "Duplicate entry '$item_name' for key 'Items.PRIMARY'"){
                   $item_nameErr = "Item name already taken";
@@ -106,13 +121,44 @@
                 echo $conn->error;
               }
             }
+            $_SESSION['image_src'] = $name;
+            $conn->close();
 
-        } else {
-          $imageErr = "File is not an image.";
-          $uploadOk = 0;
-        }
+          } else {
+            $imageErr = "File is not an image.";
+            $uploadOk = 0;
+          }
     }
   }
+  if(($_SESSION['update']==true)&&($all_right == 0)){
+        $submit_button = "Update";
+        $image = basename( $_FILES["imageUpload"]["name"],".jpg");
+        $servername = $_SESSION['servername'];
+        $susername = $_SESSION['server_username'];
+        $spassword = $_SESSION['password'];
+        $dbname = $_SESSION['dbname'];
+        // Create connection
+        $conn = new mysqli($servername, $susername, $spassword, $dbname);
+        $itemname = $_SESSION['to_update'];
+        $sql = "SELECT * FROM Items WHERE itemname = "."'$itemname'";
+        $result = $conn->query($sql);
+        echo $conn->error;
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $_SESSION['temp_item_name'] = $row['itemname'];
+                $item_name = $row['itemname'];
+                $temp_description = $row['itemdesc'];
+                $description = $row['itemdesc'];
+                $temp_prices=$row['price'];
+                $price = $row['price'];
+                $temp_quantity=$row['quantity'];
+                $quantity = $row['quantity'];
+                $_SESSION['temp_image_src']=$row['item_image'];
+                $_SESSION['image_src'] = $row['item_image'];
+            }
+        }
+    
+    }
 
   function test_input($data) {
     $data = trim($data);
@@ -122,7 +168,7 @@
   }
 ?>
 
-<h2>Add Item</h2>
+<h2>Update Item</h2>
       <p><span class="error">* required field</span></p>
       <form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
         <label for = "item_name">Item Name:</label><span class="error">* <?php echo $item_nameErr;?></span>
@@ -143,11 +189,10 @@
         <br><br>
         <label for = "image">Select image to upload:</label><span class="error">* <?php echo $imageErr;?></span>
         <br><br>
-        <input type="file" name="image" id="image">
+        <input type="file" name="image" id="image"><p>image uploaded:</p><img src = <?php echo $_SESSION['image_src'];?>>
         <br><br>
-        <input type="submit" value="Add Item" name="submit">
-        <p><?php echo $login_now;?></p>
+        <input type="submit" value=<?php echo $submit_button?> name="submit">
       </form>
-      <img src = <?php echo $image_src2;?>>
+      <h3><a href="dashboard_seller.php">Dashboard</a></h3>
 </body>
 </html>
