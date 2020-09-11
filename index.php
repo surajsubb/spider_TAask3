@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'create_databases.php';
 ?>
 <!DOCTYPE HTML>  
@@ -9,11 +8,11 @@ include 'create_databases.php';
     </head>
     <div id="container">
         <h1>WELCOME TO MYSTORE</h1>
-        <form action = "signup.php">
-            <input type = "submit" value="sign up">
-        </form>
         <form action = "login.php">
             <input type = "submit" value="login">
+        </form>
+        <form action = "signup.php">
+            <input type = "submit" value="sign up">
         </form>
     </div>
     

@@ -23,8 +23,8 @@
     } else {
       $item_name = test_input($_POST["item_name"]);
       // check if name only contains letters and whitespace
-      if (!preg_match("/^[a-zA-Z ]*$/",$item_name)) {
-        $item_nameErr = "Only letters allowed";
+      if (!preg_match("/^[ a-zA-Z0-9]{1,30}$/",$item_name)) {
+        $item_nameErr = "Only letters and numbers allowed";
         $all_right = 1;
       }
     }
@@ -135,7 +135,7 @@
         <br><br>
         <label for = "price">Price(INR):</label><span class="error">* <?php echo $priceErr;?></span>
         <br><br>
-        <input type="text" id = "price" name="price" value="<?php echo $price;?>">
+        <input type="number" id = "price" name="price" min="1" step="any" value="<?php echo $price;?>">
         <br><br>
         <label for = "quantity">Quantity:</label><span class="error">* <?php echo $quantityErr;?></span>
         <br><br>
@@ -149,5 +149,6 @@
         <p><?php echo $login_now;?></p>
       </form>
       <img src = <?php echo $image_src2;?>>
+      <h3><a href="dashboard_seller.php">Dashboard</a></h3>
 </body>
 </html>

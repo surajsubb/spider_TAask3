@@ -3,7 +3,7 @@ html {
     background-color: rgb(60, 60, 60);
 }
 p{
-    font-size: 5px;
+    font-size: 20px;
     color: #ffffff;
     text-align: center;
 }
@@ -26,7 +26,7 @@ h1{
     font-size: 50px;
     color: #ffffff;
     margin-top: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     display: block;
     margin: auto;
     text-align: center;
@@ -36,13 +36,6 @@ h1{
     width: 60%;
     margin: 100px auto;
     border: 4px solid #c4c4c4;
-}
-#added_items{
-    height: 700px;
-    border: 4px solid #c4c4c4;
-    padding:10px;
-    float: left;
-    overflow: auto;
 }
 a:link, a:visited {
     background-color: black;
@@ -58,4 +51,34 @@ a:link, a:visited {
   
 a:hover, a:active {
     background-color: rgb(50, 50, 50);
+}
+#dashboard_buttons{
+    margin-top: 10px;
+    height: 40px;
+}
+#logout{
+    float: right;
+}
+#add,#order_history{
+    float: left;
+    display: block;
+    margin-left: 20px;;
+}
+#added{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-auto-flow: column;
+    grid-column-gap: 5px;
+    margin: 0 auto;
+    margin-top: 80px;
+    overflow: auto;
+}
+#added_items{
+
+    border: 4px solid #c4c4c4;
+    padding:10px;
+    margin-top: 100px;
+    /*float: left;*/
+    overflow: auto;
 }

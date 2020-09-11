@@ -25,7 +25,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 $sql = "CREATE TABLE IF NOT EXISTS Items (
     itemname VARCHAR(24) PRIMARY KEY,
     itemdesc VARCHAR(200) NOT NULL,
-    price VARCHAR(20) NOT NULL,
+    price FLOAT(20) NOT NULL,
     item_image longtext NOT NULL,
     quantity INT(10) NOT NULL,
     seller varchar(20) NOT NULL,
@@ -59,7 +59,7 @@ echo "Error creating TABLE: " . $conn->error;
 //table to track what is bought and sold
 $sql = "CREATE TABLE IF NOT EXISTS Orders (
   orderno INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  order_size INT NOT NULL,
+  order_size INT(20) NOT NULL,
   customer_id VARCHAR(30) NOT NULL,
   seller_id VARCHAR(30) NOT NULL,
   itemname VARCHAR(24) NOT NULL,
@@ -77,7 +77,7 @@ $sql = "CREATE TABLE IF NOT EXISTS Cart (
   quantity INT(10) NOT NULL,
   seller_id VARCHAR(30) NOT NULL,
   itemname VARCHAR(24) NOT NULL,
-  order_date TIMESTAMP 
+  order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   )";
 if ($conn->query($sql) === TRUE) {
   //echo "successss";

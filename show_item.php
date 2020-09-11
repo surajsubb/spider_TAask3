@@ -9,43 +9,62 @@
     $spassword = $_SESSION['password'];
     $dbname = $_SESSION['dbname'];
 
-
     // Create connection
     $conn = new mysqli($servername, $susername, $spassword, $dbname);
-
+  
     // Check connection
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error); 
     }
     else{
+      
         $sql = $_SESSION['sql'];
-        $result = $conn->query($sql);
-        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        $Result = $conn->query($sql);
+        if (($_SERVER["REQUEST_METHOD"] == "POST")&&(!isset($_POST['order_by']))){
+
           $array = array_keys($_POST);
 
-          $update = str_replace('_',' ',$array[0]);
           if($_SESSION['user_type'] == "seller"){
+            $update = str_replace('_',' ',$array[0]);
             $_SESSION['to_update'] = $update;
             $_SESSION['update'] = true;
             header("location: update_item_seller.php");
           }
+          elseif($_SESSION['cart']==true){
+            $to_buy = str_replace('_',' ',$array[0]);
+            $_SESSION['to_buy'] = $to_buy;
+            $_SESSION['cart'] = false;
+            $_SESSION['add_to_cart'] = true;
+            header("location: buy_item_buyer.php");
+          }
+          elseif($_SESSION['add_to_cart']!=true){
+            $add_cart = str_replace('_',' ',$array[0]);
+            $_SESSION['add_cart'] = $add_cart;
+            $_SESSION['add_to_cart'] = true;
+            header("location: add_cart_buyer.php");
+          }
         }
-        while($row = $result->fetch_assoc()){
+        while($row = $Result->fetch_assoc()){
           $item_image = $row['item_image'];
           $item_name = $row['itemname'];
           $item_desc = $row['itemdesc'];
           $item_price = $row['price'];
-          $item_quantity = $row['quantity'];
+          if($_SESSION['cart'] == true){
+            $item_quantity = $_SESSION['cart_quantity'];
+          }
+          else{
+            $item_quantity = $row['quantity'];
+          }
           $item_seller = $row['seller'];
         ?>
-          <div id="item_container">
+        <div id="item_container">
           <img class="item_info" src = <?php echo $item_image;?>>
           <p class="item_info">Item: <?php echo $item_name;?></p>
           <div class="tooltip item_info">Description:
             <span class="tooltiptext"><?php echo $item_desc;?></span>
           </div>
           <p class="item_info">Price: ₹<?php echo $item_price;?></p>
-          <p class="item_info">Stock left: <?php echo $item_quantity;?></p>
+          <p class="item_info"><?php if($_SESSION['cart']==true){echo "Quantity:";} else{echo "Stock left:";}?> <?php echo $item_quantity;?></p>
           <?php
           if($_SESSION['user_type']!="seller"){
           ?>
@@ -56,14 +75,28 @@
           <?php
           if($_SESSION['user_type']=="seller"){
           ?>
-            <form method = "post">
-            <input type="submit" name = <?php echo str_replace(' ','_',$item_name) ?> value = "update">
+            <form method = "post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+              <input type="submit" name = <?php echo str_replace(' ','_',$item_name) ?> value = "Update">
             </form>
+          <?php
+          }
+          elseif($_SESSION['cart']==true){
+            ?>
+              <form method = "post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <input type="submit" name = <?php echo str_replace(' ','_',$item_name) ?> value = "Buy">
+              </form>
+            <?php
+          }
+          elseif($_SESSION['add_to_cart']!=true){
+          ?>
+              <form method = "post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <input type="submit" name = <?php echo str_replace(' ','_',$item_name) ?> value = "Add to Cart">
+              </form>
           <?php
           }
           ?>
 
-          </div>
+        </div>
         <?php
       }
     }

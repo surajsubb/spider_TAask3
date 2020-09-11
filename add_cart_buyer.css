@@ -1,0 +1,10 @@
+#add_to_cart{
+    width: 300px;
+    margin: 10px auto;
+    /*border: 4px solid #c4c4c4;*/
+    text-align: center;
+    padding: 10px;
+}
+body{
+    text-align: center;
+}

@@ -10,13 +10,11 @@ p{
 input:hover{
     background-color: rgb(50, 50, 50);
 }
-input {
+input[type=submit] {
     border-radius: 10px;
-    border: 1px solid #c4c4c4;
+    border: 4px solid #c4c4c4;
     background: black; 
     backdrop-filter: blur(10px);
-    font-size: 21px;
-    font-weight: bolder;
     color: white;
     display: block;
     margin: 10px auto;
@@ -32,11 +30,6 @@ h1{
     text-align: center;
 
 }
-#container{
-    width: 60%;
-    margin: 100px auto;
-    border: 4px solid #c4c4c4;
-}
 #added_items{
     height: 700px;
     border: 4px solid #c4c4c4;
@@ -51,11 +44,64 @@ a:link, a:visited {
     border-radius: 10px;
     padding: 14px 25px;
     text-align: center;
-    text-decoration: none;
     display: inline-block;
-    /*margin: 0 auto;*/
+    margin-left: 20px;
 }
   
 a:hover, a:active {
     background-color: rgb(50, 50, 50);
+}
+#container,#recent{
+    position: relative;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 4px solid #c4c4c4;
+    padding: 10px;
+    /*overflow: auto;*/
+}
+#dashboard_buttons{
+    margin-top: 10px;
+    height: 50px;
+}
+#cart,#order_history{
+    float:left;
+}
+#logout{
+    float: right;
+}
+#products{
+    width: auto;
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 5px;
+    margin: 0 auto;
+    margin-top: 80px;
+    overflow: auto;
+}
+#order_by{
+    width: 100px;
+    /*position: fixed;*/
+    float: left;
+
+}
+#go{
+    /*position: fixed;
+    left:150px;*/
+    float: left;
+    margin-left: 10px;
+}
+#search{
+    width: 700px;
+    margin: 0 auto;
+}
+#search_error{
+    float: right;
+}
+#purchased{
+    width: auto;;
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 5px;
+    margin: 0 auto;
+    overflow: auto;
 }
