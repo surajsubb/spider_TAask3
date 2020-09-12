@@ -1,8 +1,30 @@
 #hide1{
    display: none;
 }
+#back{
+   text-align: left;   
+}
 #graphs{
    border: 2px solid white;
    width: 800px;
+   margin: 0 auto;
+}
+#time,#time_is{
+   width: 100px;
+   height: 40px;
+   float: left;
+   margin-top: 10px;
+   text-align: center;
+   padding-top: 10px;
+
+}
+#time_options{
+   height:100px;
+}
+#time_is{
+   width:50px;
+   margin-left: 10px;
+}
+#canvas_bar{
    margin: 0 auto;
 }
