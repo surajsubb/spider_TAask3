@@ -149,6 +149,6 @@
         <p><?php echo $login_now;?></p>
       </form>
       <img src = <?php echo $image_src2;?>>
-      <h3><a href="dashboard_seller.php">Dashboard</a></h3>
+      <h3><a href="dashboard_seller.php">Back to Dashboard</a></h3>
 </body>
 </html>

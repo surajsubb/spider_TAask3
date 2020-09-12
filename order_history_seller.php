@@ -75,7 +75,7 @@ if(!isset($_SESSION['user_type']) || $_SESSION['user_type']!="seller"){
         }
         ?>
         </table>
-        <h3><a href= <?php echo "dashboard_seller.php"?>>Dashboard</a></h3>
+        <h3><a href="dashboard_seller.php">Back to Dashboard</a></h3>
     </body>
 </html>
 <?php

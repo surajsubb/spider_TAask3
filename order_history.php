@@ -22,6 +22,6 @@ session_start();
             include 'recent_purchase.php';
         ?>
         </div>
-        <h3><a href= <?php echo "dashboard_$type.php"?>>Dashboard</a></h3>
+        <h3><a href= <?php echo "dashboard_$type.php"?>>Back to Dashboard</a></h3>
     </div>
 </html>

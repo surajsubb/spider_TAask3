@@ -15,10 +15,14 @@ $_SESSION['cart']=false;
     <div id="dashboard_buttons">
         <a id="add" href="add_item_seller.php">Add Item </a>
         <a id="order_history" href="order_history_seller.php">Order History</a>
+        <a id="stats" href="statquery.php">Statistics</a>
         <a id="logout" href="logout.php">Logout </a>
     </div>
     <div id = "added_items">
         <p>Items added by you:</p>
+        <div id="empty">
+          <p><?php echo $_SESSION['empty'];?></p>
+        </div>
         <div id="added">
         <?php
             $username = $_SESSION['username'];

@@ -104,7 +104,7 @@ if(!isset($_SESSION['user_type']) || $_SESSION['user_type']!="buyer"){
                 <input type="submit" name = "add" value = "Add to Cart">
             </form>
             <h3><a href="cart.php">Proceed to cart</a></h3>
-            <h3><a href="dashboard_buyer.php">Dashboard</a></h3>
+            <h3><a href="dashboard_seller.php">Back to Dashboard</a></h3>
         <div>
     </body>
 </html>

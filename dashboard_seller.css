@@ -59,7 +59,7 @@ a:hover, a:active {
 #logout{
     float: right;
 }
-#add,#order_history{
+#add,#order_history,#stats{
     float: left;
     display: block;
     margin-left: 20px;;

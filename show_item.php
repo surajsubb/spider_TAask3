@@ -8,7 +8,7 @@
     $susername = $_SESSION['server_username'];
     $spassword = $_SESSION['password'];
     $dbname = $_SESSION['dbname'];
-
+    $empty = "";
     // Create connection
     $conn = new mysqli($servername, $susername, $spassword, $dbname);
   
@@ -20,6 +20,9 @@
       
         $sql = $_SESSION['sql'];
         $Result = $conn->query($sql);
+        if(mysqli_num_rows($Result) == 0){
+          $_SESSION['empty'] = "No items";
+        }
         if (($_SERVER["REQUEST_METHOD"] == "POST")&&(!isset($_POST['order_by']))){
 
           $array = array_keys($_POST);
@@ -44,6 +47,8 @@
             header("location: add_cart_buyer.php");
           }
         }
+        ?>
+        <?php
         while($row = $Result->fetch_assoc()){
           $item_image = $row['item_image'];
           $item_name = $row['itemname'];

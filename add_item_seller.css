@@ -2,6 +2,9 @@ html {
     box-sizing: border-box;
     background-color: rgb(60, 60, 60);
 }
+body{
+    text-align: center;
+}
 p{
     font-size: 20px;
     color: #ffffff;

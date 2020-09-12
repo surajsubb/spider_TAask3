@@ -21,13 +21,18 @@ $_SESSION['cart']=false;
             $spassword = $_SESSION['password'];
             $dbname = $_SESSION['dbname'];
             $conn = new mysqli($servername, $susername, $spassword, $dbname);
-
+            
+            $empty = "";
             if ($conn->connect_error) {
               die("Connection failed: " . $conn->connect_error); 
             }
             $counter = 1;
             $sql = "SELECT * FROM Cart WHERE customer_id = '$username'";
             $result = $conn->query($sql);
+            
+            if(mysqli_num_rows($result) == 0){
+                $empty = "No items in cart";
+            }
             $_SESSION['cart']=true;
            while($row = $result->fetch_assoc()){
                 $itemname = $row['itemname'];
@@ -40,6 +45,7 @@ $_SESSION['cart']=false;
             }
             
         ?>
-        <h3><a href="dashboard_buyer.php">Dashboard</a></h3>
+        <p><?php echo $empty ?>
+        <h3><a href="dashboard_buyer.php">Back to Dashboard</a></h3>
     <div>
 </html>
