@@ -7,7 +7,8 @@ and $_SESSION['password'] to a user and password on your mysql system(line 3 and
   - Customer can see all products as well as their recently purchased products.
   - Items added to the cart can be viewed after clicking the cart button on top.
   - Items in the cart will stay even after customer logs out.
-  - customers can sort the products by different categories such as name, quantity, price.
+  - Customers can sort the products by different categories such as name, quantity, price.
+  - Customers can search for items also.
 ## Seller
   - They can view all items added by them in the dashboard and also add and update items.
   - When a product is added an image of the product can also be added for easy identification.
